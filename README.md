@@ -49,9 +49,9 @@ CREATE TABLE `sh_user_pref_t` (
   - The top level keys in that JSON file represent the columns. All of their values are inserted as strings into the database.
 
 #####Config Required (spring-sys.xml):
-- Remove existing preferencesDao and preferencesDao-parentBean beans
-- Add new bean
-  ```xml
+- Replace existing preferencesDao and preferencesDao-parentBean beans with:
+
+```xml
   <bean id="preferencesDao" parent="platformAwareDaoJdbc" class="org.kuali.kfs.sys.dataaccess.impl.PreferencesDaoJdbc"></bean>
   ```
 
@@ -79,8 +79,7 @@ org.kuali.kfs.sys.dataaccess.impl.PreferencesDaoJdbc
 - kfs.documentstore.password=kfs
 
 #####Config Required (spring-sys.xml):
-- Remove existing preferencesDao and preferencesDao-parentBean beans
-- Add new beans
+- Replace existing preferencesDao and preferencesDao-parentBean beans with:
 ```xml
 <bean id="documentstoreClient" parent="documentstoreClient-parentBean"/>
 <bean id="documentstoreClient-parentBean" abstract="true" class="org.kuali.kfs.sys.dataaccess.impl.DynamoDBClient">
