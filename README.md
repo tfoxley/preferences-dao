@@ -44,43 +44,43 @@ CREATE TABLE `sh_user_pref_t` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 ```
 #####Insert data
-  - Seed InstitutionPreferences table
-    - Use the last file referenced in kfs-core/src/main/resources/org/kuali/core/documentstore/updates.json
-    - The top level keys in that JSON file represent the columns. All of their values are inserted as strings into the database.
+- Seed InstitutionPreferences table
+  - Use the last file referenced in kfs-core/src/main/resources/org/kuali/core/documentstore/updates.json
+  - The top level keys in that JSON file represent the columns. All of their values are inserted as strings into the database.
 
 #####Config Required (spring-sys.xml):
-  - Remove existing preferencesDao and preferencesDao-parentBean beans
-  - Add new bean
+- Remove existing preferencesDao and preferencesDao-parentBean beans
+- Add new bean
   ```xml
   <bean id="preferencesDao" parent="platformAwareDaoJdbc" class="org.kuali.kfs.sys.dataaccess.impl.PreferencesDaoJdbc"></bean>
   ```
 
 #####Additional Class Required:
-  - /kfs-core/src/main/java/org/kuali/kfs/sys/dataaccess/impl
+- /kfs-core/src/main/java/org/kuali/kfs/sys/dataaccess/impl
 org.kuali.kfs.sys.dataaccess.impl.PreferencesDaoJdbc
 
 #####Caching:
-  - With institution configuration all of the links and permissions have to be calculated based on the user. To prevent this calculation from occurring every time we also store a calculated version of all of the links for the given user in a “cache”.
-  - The cache length defaults to zero.
-  - To set cache length use the “Sidebar Menu Cache Configuration” navigation link.
+- With institution configuration all of the links and permissions have to be calculated based on the user. To prevent this calculation from occurring every time we also store a calculated version of all of the links for the given user in a “cache”.
+- The cache length defaults to zero.
+- To set cache length use the “Sidebar Menu Cache Configuration” navigation link.
 
 
 ###DynamoDB
 #####Create tables:
-  - initializeTables method in PreferencesDaoDynamoDB.java
-  - use DynamoDB console to insert data from the last file referenced in kfs-core/src/main/resources/org/kuali/core/documentstore/updates.json
+- initializeTables method in PreferencesDaoDynamoDB.java
+- use DynamoDB console to insert data from the last file referenced in kfs-core/src/main/resources/org/kuali/core/documentstore/updates.json
 
 #####Properties Required:
-  - kfs.documentstore.client.class=org.kuali.kfs.sys.dataaccess.impl.DynamoDBClient
-  - kfs.documentstore.class=org.kuali.kfs.sys.dataaccess.impl.PreferencesDaoDynamoDB
-  - kfs.documentstore.host=127.0.0.1
-  - kfs.documentstore.port=8000
-  - kfs.documentstore.username=kfs
-  - kfs.documentstore.password=kfs
+- kfs.documentstore.client.class=org.kuali.kfs.sys.dataaccess.impl.DynamoDBClient
+- kfs.documentstore.class=org.kuali.kfs.sys.dataaccess.impl.PreferencesDaoDynamoDB
+- kfs.documentstore.host=127.0.0.1
+- kfs.documentstore.port=8000
+- kfs.documentstore.username=kfs
+- kfs.documentstore.password=kfs
 
 #####Config Required (spring-sys.xml):
-  - Remove existing preferencesDao and preferencesDao-parentBean beans
-  - Add new beans
+- Remove existing preferencesDao and preferencesDao-parentBean beans
+- Add new beans
 ```xml
 <bean id="documentstoreClient" parent="documentstoreClient-parentBean"/>
 <bean id="documentstoreClient-parentBean" abstract="true" class="org.kuali.kfs.sys.dataaccess.impl.DynamoDBClient">
@@ -97,9 +97,9 @@ org.kuali.kfs.sys.dataaccess.impl.PreferencesDaoJdbc
 ```
 
 #####Additional Classes Required:
-  - /kfs-core/src/main/java/org/kuali/kfs/sys/dataaccess/impl
-    - org.kuali.kfs.sys.dataaccess.impl.DynamoDBClient
-    - org.kuali.kfs.sys.dataaccess.impl.PreferencesDaoDynamoDB
+- /kfs-core/src/main/java/org/kuali/kfs/sys/dataaccess/impl
+  - org.kuali.kfs.sys.dataaccess.impl.DynamoDBClient
+  - org.kuali.kfs.sys.dataaccess.impl.PreferencesDaoDynamoDB
 
 #####Additional Maven Dependency:
 ```xml
@@ -111,10 +111,10 @@ org.kuali.kfs.sys.dataaccess.impl.PreferencesDaoJdbc
 ```
 
 #####Methods Not Yet Implemented:
-  - Class: PreferencesDaoDynamoDB
-    - saveInstitutionPreferences
-    - findInstitutionPreferencesCache
-    - cacheInstitutionPreferences
-    - setInstitutionPreferencesCacheLength
-    - getInstitutionPreferencesCacheLength
-    - saveUserPreferences(String principalName, Map<String, Object> preferences)
+- Class: PreferencesDaoDynamoDB
+  - saveInstitutionPreferences
+  - findInstitutionPreferencesCache
+  - cacheInstitutionPreferences
+  - setInstitutionPreferencesCacheLength
+  - getInstitutionPreferencesCacheLength
+  - saveUserPreferences(String principalName, Map<String, Object> preferences)
