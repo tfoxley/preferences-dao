@@ -45,7 +45,7 @@ CREATE TABLE `sh_user_pref_t` (
 ```
 #####Insert data
 - Seed InstitutionPreferences table
-  - Use the last file referenced in kfs-core/src/main/resources/org/kuali/core/documentstore/updates.json
+  - Use the last file referenced in kfs-core/src/main/resources/org/kuali/kfs/core/documentstore/updates.json
   - The top level keys in that JSON file represent the columns. All of their values are inserted as strings into the database.
 
 #####Config Required (spring-sys.xml):
